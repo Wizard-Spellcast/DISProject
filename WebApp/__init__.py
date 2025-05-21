@@ -20,5 +20,5 @@ conn = psycopg2.connect(db)
 # from WebApp.Routes.PAGE import PAGE
 # app.register_blueprint(PAGE)
 
-from WebApp.Routes.Node import Node
-app.register_blueprint(Node)
+from WebApp.Routes.Home import Home
+app.register_blueprint(Home)
