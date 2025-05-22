@@ -48,9 +48,10 @@ conn.close()
 # app.register_blueprint(PAGE)
 app.template_folder = "./Templates"
 
-from WebApp.Routes import Home, Insert, Artist, Album, Track
+from WebApp.Routes import Home, Insert, Artist, Album, Track, Search
 app.register_blueprint(Home.Home)
 app.register_blueprint(Insert.Insert)
 app.register_blueprint(Artist.Artist)
 app.register_blueprint(Album.Album)
 app.register_blueprint(Track.Track)
+app.register_blueprint(Search.Search)

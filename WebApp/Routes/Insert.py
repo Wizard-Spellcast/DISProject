@@ -18,4 +18,5 @@ def insert():
         
         cur.execute(open(os.getcwd() + "/db/insertAlbum.sql", "r").read())
         cur.execute(open(os.getcwd() + "/db/insertTrack.sql", "r").read())
+        cur.execute(open(os.getcwd() + "/db/insertArtistAlbumLink.sql", "r").read())
         return redirect("/")

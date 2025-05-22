@@ -2,8 +2,31 @@
 
 {% block content %}
 
-    <h1>Post query page</h1>
+
+    <form method="post">
+        <input type="hidden" name="table" value="{{ table }}">
+        <label for="query">{{ table }} name</label><br>
+        <input type="text" id="query" name="query"><br>
+        <input type="submit" value="Submit">
+    </form>
 
     <h4>Below are search results from table: {{ table }}</h4>
+
+    {% if q_result %}
+        <table>
+            <tr>
+                <th>
+                    Name
+                </th>
+            </tr>
+            <tr>
+                {% for i in q_result %}
+                    <td>
+                        <a href="{{ url_for(lt, id=i[0]) }}"> {{ i[1] }} </a>
+                    </td>
+                {% endfor %}
+            </tr>
+        </table>
+    {% endif %}
 
 {% endblock %}

@@ -6,17 +6,17 @@ Artist = Blueprint('Artist', __name__)
 
 @Artist.route("/artist")
 def artist_search():
-    return render_template("search.html", table='artist')
+    return redirect(url_for('Search.search', table='artist'))
 
-@Artist.route("/artist/<artist_id>")
-def artist_lookup(artist_id:str=None):
+@Artist.route("/artist/<id>")
+def artist_lookup(id:str=None):
     conn = sqlutil.get_connection()
     cursor = conn.cursor()
-    cursor.execute(f"SELECT * FROM artist WHERE id = {artist_id}")
+    cursor.execute(f"SELECT * FROM artist WHERE id = {id}")
 
     artist_data:models.Artist = cursor.fetchone()
 
-    cursor.execute(f"SELECT * FROM album a WHERE id = (SELECT albumid FROM artistalbumlink WHERE artistID = {artist_id})")
+    cursor.execute(f"SELECT * FROM album WHERE id IN (SELECT albumID FROM ArtistAlbumLink WHERE artistID = {id})")
     artist_albums:models.Album = cursor.fetchall()
     conn.close()
 

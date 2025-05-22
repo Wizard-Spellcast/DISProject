@@ -7,14 +7,14 @@ CREATE TABLE IF NOT EXISTS  album(
 	id  	    SERIAL PRIMARY KEY,
 	name 	    VARCHAR NOT NULL,
 	artistOwner INT,
-    FOREIGN KEY (artistOwner) REFERENCES  artist
+    FOREIGN KEY (artistOwner) REFERENCES artist
 );
 
 CREATE TABLE IF NOT EXISTS  track(
 	id      SERIAL PRIMARY KEY,
 	name    VARCHAR NOT NULL,
     primaryArtist INT,
-    FOREIGN KEY (primaryArtist) REFERENCES  artist
+    FOREIGN KEY (primaryArtist) REFERENCES artist
 );
 
 CREATE TABLE IF NOT EXISTS  genre(

@@ -6,14 +6,14 @@ Album = Blueprint('Album', __name__)
 
 @Album.route("/album")
 def album_search():
-    return render_template("search.html", table='album')
+    return redirect(url_for('Search.search', table='album'))
 
 
-@Album.route("/album/<album_id>")
-def album(album_id:str=None):
+@Album.route("/album/<id>")
+def album_lookup(id:str=None):
     conn = sqlutil.get_connection()
     cursor = conn.cursor()
-    cursor.execute(f"SELECT * FROM album WHERE id = {album_id}")
+    cursor.execute(f"SELECT * FROM album WHERE id = {id}")
 
     album_data:models.Album = cursor.fetchone()
     conn.close()

@@ -14,7 +14,7 @@
     <table>
         {% for album in artist_albums %}
             <tr>
-                <td> <a href="{{ url_for("Album.album", album_id = album[0]) }}">
+                <td> <a href="{{ url_for("Album.album_lookup", id = album[0]) }}">
                     {{ album[1] }}
                 </a></td>
             </tr>
