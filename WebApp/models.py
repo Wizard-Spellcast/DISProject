@@ -2,9 +2,6 @@ from datetime import date
 
 
 class Artist(tuple):
-    id = 0
-    name = "NAN"
-    albumsLink = 0
     def __init__(self, artist_data):
         self.id:int = artist_data[0] # Primary key
         self.name:int = artist_data[1]

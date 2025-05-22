@@ -1,30 +1,32 @@
-CREATE TABLE artists(
-	id	 		INT PRIMARY KEY,
-	artistName 	VARCHAR,
-	albumsLink 	INT,
-)
+CREATE DATABASE wizard;
+
+CREATE TABLE artist(
+	id	 		SERIAL PRIMARY KEY,
+	artistName 	VARCHAR NOT NULL,
+	albumsLink 	INT
+);
 
 CREATE TABLE artistAlbumLink(
-	artistAlbumLinkID INT PRIMARY KEY,
+	artistAlbumLinkID SERIAL PRIMARY KEY,
 	artistID 	INT,
-	albumID 	INT,
-)
+	albumID 	INT
+);
 
-CREATE TABLE albums(
-	albumID 	INT PRIMARY KEY,
-	albumName 	VARCHAR,
+CREATE TABLE album(
+	albumID 	SERIAL PRIMARY KEY,
+	albumName 	VARCHAR NOT NULL,
 	albumIcon	VARCHAR,
-	tracksLink 	INT,
-)
+	trackLink 	INT
+);
 
 CREATE TABLE albumTackLink(
-	albumTackLinkID INT PRIMARY KEY,
-	albumID VARCHAR,
-	tracksID INT,
-)
+	albumTackLinkID SERIAL PRIMARY KEY,
+	albumID VARCHAR NOT NULL,
+	trackID INT
+);
 
-CREATE TABLE tracks(
-	trackID INT PRIMARY KEY,
-	trackName VARCHAR,
-	albumLink INT,
-)
+CREATE TABLE track(
+	trackID SERIAL PRIMARY KEY,
+	trackName VARCHAR NOT NULL,
+	albumLink INT
+);

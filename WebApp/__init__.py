@@ -1,17 +1,35 @@
+import os
+
 from flask import Flask
-import psycopg2
+from WebApp import sqlutil
 
 #from flask import session
 #from flask_session import Session
 
+def build_db():
+    conn = sqlutil.get_connection()
+    curr = conn.cursor()
+
+    with open(os.path.join(os.getcwd(), "db/init.sql")) as f:
+        sql_commands = f.read().split(";")
+
+    for command in sql_commands:
+        command = command.strip()
+        if command:
+            curr.execute(command)
+
+    curr.close()
+    conn.close()
+
+cur = sqlutil.get_connection().cursor()
+cur.execute("SELECT datname FROM pg_database where datname = 'wizard'")
+if len(cur.fetchall()) == 0:
+    # Wizard DB must not exist
+    build_db()
+
 
 app = Flask(__name__)
 
-# app.config['SECRET_KEY'] = 'fc089b9218301ad987914c53481bff04'
-
-# set your own database
-db = "dbname='nodeDB' user='postgres' host='127.0.0.1' password = 'admin'"
-conn = psycopg2.connect(db)
 
 # Check Configuration section for more details
 #SESSION_TYPE = 'filesystem'
@@ -19,6 +37,8 @@ conn = psycopg2.connect(db)
 # TEMPLATE
 # from WebApp.Routes.PAGE import PAGE
 # app.register_blueprint(PAGE)
+app.template_folder = "./Templates"
 
-from WebApp.Routes.Home import Home
-app.register_blueprint(Home)
+from WebApp.Routes import Home, Insert
+app.register_blueprint(Home.Home)
+app.register_blueprint(Insert.Insert)

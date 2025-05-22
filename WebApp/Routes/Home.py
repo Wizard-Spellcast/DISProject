@@ -1,5 +1,5 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
-from WebApp import models
+from WebApp import models, sqlutil
 import psycopg2
 
 Home = Blueprint('Home', __name__)
@@ -17,11 +17,7 @@ def home():
 
 @Home.route("/a/<artist_id>")
 def artist(artist_id:str=None):
-    conn = psycopg2.connect(database="wizzardDB",
-                        host="localhost",
-                        user="postgres",
-                        password="admin",
-                        port="5432")
+    conn = sqlutil.get_connection()
     cursor = conn.cursor()
     cursor.execute(f"SELECT * FROM artist WHERE id = {artist_id}")
 
