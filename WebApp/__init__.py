@@ -11,20 +11,6 @@ def build_db():
     conn.cursor().execute("CREATE DATABASE wizard")
     conn.close()
 
-    conn = sqlutil.get_connection()
-    curr = conn.cursor()
-
-    with open(os.path.join(os.getcwd(), "db/init.sql")) as f:
-        sql_commands = f.read().split(";")
-
-    for command in sql_commands:
-        command = command.strip()
-        if command:
-            curr.execute(command)
-
-    curr.close()
-    conn.close()
-
 
 app = Flask(__name__)
 
@@ -38,6 +24,17 @@ if conn is None:
         build_db()
 else:
     print("Connected to PostgreSQL, database is set up")
+
+cur = conn.cursor()
+
+# Init database always, creates tables if not exist
+with open(os.path.join(os.getcwd(), "db/init.sql")) as f:
+    sql_commands = f.read().split(";")
+
+for command in sql_commands:
+    command = command.strip()
+    if command:
+        cur.execute(command)
 
 conn.close()
 

@@ -8,11 +8,12 @@
 
 <body>
     <ul>
-        <li><a href="/home">Home</a></li>
-        <li><a href="/insert">Insert Data</a></li>
-        <li><a href="artist/0">Artist 0</a></li>
-        <li><a href="album/0">Album 0</a></li>
-        <li><a href="track/0">Track 0</a></li>
+        <li><a href="{{ url_for('Home.home')    }}">Home</a></li>
+        <li><a href="{{ url_for('Insert.insert')}}">Insert Data</a></li>
+
+        <li><a href="{{ url_for('Artist.artist_search')}}">Artists</a></li>
+        <li><a href="{{ url_for('Album.album_search')  }}">Albums</a></li>
+        <li><a href="{{ url_for('Track.track_search')  }}">Tracks</a></li>
     </ul>
 
     {% block content %}

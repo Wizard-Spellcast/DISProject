@@ -2,12 +2,28 @@
 
 {% block content %}
 
-<h1>
-    {% if artist_data %}
+{% if artist_data %}
+
+    <h1>
         {{ artist_data[1] }}
-    {% else %}
-        FAILED TO GET ARTIST DATA!
-    {% endif %}
-</h1>
+    </h1>
+
+    <h4>
+    Albums
+    </h4>
+    <table>
+        {% for album in artist_albums %}
+            <tr>
+                <td> <a href="{{ url_for("Album.album", album_id = album[0]) }}">
+                    {{ album[1] }}
+                </a></td>
+            </tr>
+        {% endfor %}
+    </table>
+
+
+{% else %}
+    FAILED TO GET ARTIST DATA!
+{% endif %}
 
 {% endblock %}

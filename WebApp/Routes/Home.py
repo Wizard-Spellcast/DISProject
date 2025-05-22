@@ -6,7 +6,4 @@ Home = Blueprint('Home', __name__)
 
 @Home.route("/", methods=['GET', 'POST'])
 def home():
-    if request.method == 'GET':
-        return render_template("home.html")
-    else:
-        return redirect(url_for("search"))
+    return render_template('home.html')

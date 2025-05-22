@@ -4,6 +4,11 @@ import psycopg2
 
 Track = Blueprint('Track', __name__)
 
+@Track.route("/track")
+def track_search():
+    return render_template("search.html", table='track')
+
+
 @Track.route("/track/<track_id>")
 def track(track_id:str=None):
     conn = sqlutil.get_connection()

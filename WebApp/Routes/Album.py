@@ -4,6 +4,11 @@ import psycopg2
 
 Album = Blueprint('Album', __name__)
 
+@Album.route("/album")
+def album_search():
+    return render_template("search.html", table='album')
+
+
 @Album.route("/album/<album_id>")
 def album(album_id:str=None):
     conn = sqlutil.get_connection()
