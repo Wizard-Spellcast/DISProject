@@ -1,0 +1,10 @@
+INSERT INTO artist VALUES (DEFAULT, 'Habe');
+INSERT INTO artist VALUES (DEFAULT, 'Jrome');
+INSERT INTO artist VALUES (DEFAULT, 'Torpod');
+INSERT INTO artist VALUES (DEFAULT, 'Ktka');
+INSERT INTO artist VALUES (DEFAULT, 'Ptop');
+INSERT INTO artist VALUES (DEFAULT, 'Marcussy');
+INSERT INTO artist VALUES (DEFAULT, 'Ptop');
+INSERT INTO artist VALUES (DEFAULT, 'Commknowledge');
+INSERT INTO artist VALUES (DEFAULT, 'SH');
+

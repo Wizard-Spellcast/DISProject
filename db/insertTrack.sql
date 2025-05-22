@@ -1,0 +1,1 @@
+INSERT INTO track VALUES (DEFAULT, 'Tackname first', 1, 1, 1);

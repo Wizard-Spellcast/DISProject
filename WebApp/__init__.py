@@ -7,6 +7,10 @@ from WebApp import sqlutil
 #from flask_session import Session
 
 def build_db():
+    conn = sqlutil.get_connection("CONNECTION_STRING_PGDB")
+    conn.cursor().execute("CREATE DATABASE wizard")
+    conn.close()
+
     conn = sqlutil.get_connection()
     curr = conn.cursor()
 
@@ -21,14 +25,22 @@ def build_db():
     curr.close()
     conn.close()
 
-cur = sqlutil.get_connection().cursor()
-cur.execute("SELECT datname FROM pg_database where datname = 'wizard'")
-if len(cur.fetchall()) == 0:
-    # Wizard DB must not exist
-    build_db()
-
 
 app = Flask(__name__)
+
+conn = sqlutil.get_connection()
+if conn is None:
+    conn = sqlutil.get_connection('CONNECTION_STRING_PGDB')
+    if conn is None:
+        print("Could not connect to PostgreSQL")
+    else:
+        print("Connected to PostgreSQL, but no database is set up")
+        build_db()
+else:
+    print("Connected to PostgreSQL, database is set up")
+
+conn.close()
+
 
 
 # Check Configuration section for more details
@@ -39,6 +51,9 @@ app = Flask(__name__)
 # app.register_blueprint(PAGE)
 app.template_folder = "./Templates"
 
-from WebApp.Routes import Home, Insert
+from WebApp.Routes import Home, Insert, Artist, Album, Track
 app.register_blueprint(Home.Home)
 app.register_blueprint(Insert.Insert)
+app.register_blueprint(Artist.Artist)
+app.register_blueprint(Album.Album)
+app.register_blueprint(Track.Track)
