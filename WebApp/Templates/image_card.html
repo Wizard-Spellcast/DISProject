@@ -1,0 +1,16 @@
+{% block image %}
+    {% set file_types = ("jpg", "png", "jpeg") %}
+    {% set img_string_full = img_string %}
+    {% for ft in file_types %}
+        {% if os.path.exists(img_string + "." + ft) %}
+            {% set img_string_full = img_string + "." + ft %}
+        {% endif %}
+    {% endfor %}
+
+    <img id='image_card'
+         width="100px"
+         height="100px"
+         src="{{ url_for('static', filename='image/' + img_string_full + ".jpg") }}"
+         alt="404 IMG not found">
+
+{% endblock %}

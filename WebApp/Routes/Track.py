@@ -10,7 +10,7 @@ def track_search():
 
 
 @Track.route("/track/<id>")
-def track(id:str=None):
+def track_lookup(id:str=None):
     conn = sqlutil.get_connection()
     cursor = conn.cursor()
     cursor.execute(f"SELECT * FROM track WHERE id = {id}")

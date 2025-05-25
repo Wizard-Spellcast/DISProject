@@ -4,8 +4,12 @@
     <file url="file://$PROJECT_DIR$/WebApp/Routes/Home.py" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/db/init.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/db/insertAlbum.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/db/insertAlbumTrackLink.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/db/insertArtist.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/db/insertArtistAlbumLink.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/db/insertGenre.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/db/insertTrack.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/db/insertTrackGenreLink.sql" dialect="PostgreSQL" />
     <file url="PROJECT" dialect="PostgreSQL" />
   </component>
 </project>

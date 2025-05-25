@@ -5,38 +5,55 @@ from WebApp import sqlutil
 
 #from flask import session
 #from flask_session import Session
-
-def build_db():
-    conn = sqlutil.get_connection("CONNECTION_STRING_PGDB")
-    conn.cursor().execute("CREATE DATABASE wizard")
-    conn.close()
-
-
 app = Flask(__name__)
 
-conn = sqlutil.get_connection()
-if conn is None:
-    conn = sqlutil.get_connection('CONNECTION_STRING_PGDB')
-    if conn is None:
-        print("Could not connect to PostgreSQL")
-    else:
-        print("Connected to PostgreSQL, but no database is set up")
-        build_db()
-else:
-    print("Connected to PostgreSQL, database is set up")
 
-cur = conn.cursor()
+con = sqlutil.get_connection()
+if con is None:
+    app.logger.error("Could not connect to Wizard DB")
+    con = sqlutil.get_connection('CONNECTION_STRING_PGDB')
+    if con is None:
+        app.logger.fatal("Could not connect to PG DB")
+    else:
+        app.logger.info("Connected to PG DB")
+        cur = con.cursor()
+
+        app.logger.info("Creating Wizard DB")
+        cur.execute("CREATE DATABASE wizard")
+
+        cur.close()
+        con.close()
+
+        # This does not work, use insert tab cause that for some reason works
+        conNew = sqlutil.get_connection() # Connect to newly created DB
+        app.logger.info("Connected to Wizard DB")
+        cur = conNew.cursor()
+        app.logger.info("Populating DB")
+
+        cur.execute(open(os.getcwd() + "/db/init.sql", "r").read())
+
+        #cur.execute(open(os.getcwd() + "/db/insertArtist.sql", "r").read())
+        #cur.execute(open(os.getcwd() + "/db/insertAlbum.sql", "r").read())
+        #cur.execute(open(os.getcwd() + "/db/insertTrack.sql", "r").read())
+
+        app.logger.info("Finished populating DB")
+
+else:
+    app.logger.info("Connected to Wizard DB")
 
 # Init database always, creates tables if not exist
 with open(os.path.join(os.getcwd(), "db/init.sql")) as f:
     sql_commands = f.read().split(";")
+
+
+cur = con.cursor()
 
 for command in sql_commands:
     command = command.strip()
     if command:
         cur.execute(command)
 
-conn.close()
+con.close()
 
 
 
@@ -47,6 +64,14 @@ conn.close()
 # from WebApp.Routes.PAGE import PAGE
 # app.register_blueprint(PAGE)
 app.template_folder = "./Templates"
+
+@app.context_processor
+def handle_context():
+    return dict(os=os)
+
+def register_blueprints(_app, _blueprints):
+    for bp in _blueprints:
+        _app.register_blueprint(bp)
 
 from WebApp.Routes import Home, Insert, Artist, Album, Track, Search
 app.register_blueprint(Home.Home)

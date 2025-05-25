@@ -1,5 +1,7 @@
 import os
 from flask import render_template, url_for, flash, redirect, request, Blueprint
+from flask.globals import app_ctx
+
 from WebApp import models, sqlutil
 import psycopg2
 
@@ -20,6 +22,7 @@ def search(table:str = None):
 
         cur.execute(f"SELECT * FROM {table} WHERE name LIKE '{term}'")
         q_result = cur.fetchall()
+        app_ctx.app.logger.info(f"Found {len(q_result)} results from {table} by query: {term}")
 
         lt = None
         match table:

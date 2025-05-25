@@ -11,6 +11,10 @@ ul {
   background-color: #333;
 }
 
+pre {
+  color: bisque;
+}
+
 li {
   float: left;
 }
@@ -26,4 +30,28 @@ li a {
 /* Change the link color to #111 (black) on hover */
 li a:hover {
   background-color: #111;
+}
+
+input {
+  margin: 5px;
+  padding: 5px;
+  overflow: auto;
+  display: compact;
+  color: white;
+  text-decoration: none;
+  background-color: #333333;
+  border: #333333;
+}
+
+input:focus#query {
+    outline: none;
+    border: none;
+}
+
+input:hover[type=submit] {
+  background-color: #444444;
+}
+
+img#image_card {
+  margin: 10px;
 }
