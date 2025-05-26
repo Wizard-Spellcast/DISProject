@@ -3,8 +3,8 @@ import os
 from flask import Flask
 from WebApp import sqlutil
 
-#from flask import session
-#from flask_session import Session
+# from flask import session
+# from flask_session import Session
 app = Flask(__name__)
 
 
@@ -46,6 +46,7 @@ with open(os.path.join(os.getcwd(), "db/init.sql")) as f:
     sql_commands = f.read().split(";")
 
 
+# det her vil stadig fejle hvis con er None
 cur = con.cursor()
 
 for command in sql_commands:
