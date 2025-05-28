@@ -1,22 +1,36 @@
 body {background-color: #7a4234;}
 
 /*
-Ripped from https://www.w3schools.com/css/css_navbar_horizontal.asp
+This first part is ripped from https://www.w3schools.com/css/css_navbar_horizontal.asp
  */
 ul {
   list-style-type: none;
   margin: 0;
-  padding: 0;
+  padding: 0px;
   overflow: hidden;
   background-color: #333;
+}
+
+li {
+  float: left;
 }
 
 pre {
   color: bisque;
 }
 
-li {
-  float: left;
+ul.list-box {
+  list-style-type: none;
+  margin: 0;
+  padding: 10px;
+  overflow: hidden;
+  background-color: #333;
+  border-radius: 10px;
+}
+
+
+li.list-box-element {
+  border-radius: 5px;
 }
 
 li a {
@@ -71,10 +85,27 @@ input:hover[type=submit] {
 
 img#image_card {
   margin: 10px;
+  border-radius: 10%;
 }
 
 .container {
   display: flex;
   flex-direction: column;
   place-items: center;
+}
+
+a.page-topper {
+  display: inline-flex;
+  place-items: self-start;
+  flex-direction: column;
+  background-color: #582022;
+  padding: 10px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  color: white;
+  border-radius: 10px;
+}
+
+h2 {
+  margin: 0;
 }

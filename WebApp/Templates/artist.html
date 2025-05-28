@@ -4,25 +4,27 @@
 
 {% if artist_data %}
     {% set img_string = ("artist", artist_data[0]|string)|join("/") %}
-    {% include "image_card.html" with context %}
-    <h2>{{ artist_data[1] }}</h2>
+    <a class="page-topper">
+        {% include "image_card.html" with context %}
+        <h2>Artist - {{ artist_data[1] }}</h2>
+    </a>
 
     <h4>
     Albums
     </h4>
 
-    <ul>
+    <ul  class="list-box">
         {% for album_data in artist_albums %}
-                <li>
-                    {% with data = album_data %}
-                        {% set img_string = ("album", data[0]|string)|join("/") %}
-                        <a class="container" href="{{ url_for("Album.album_lookup", id = data[0]) }}">
-                            {% include "image_card.html" with context %}
-                            {{ data[1] }}
-                        </a>
+            <li  class="list-box-element">
+                {% with data = album_data %}
+                    {% set img_string = ("album", data[0]|string)|join("/") %}
+                    <a class="container" href="{{ url_for("Album.album_lookup", id = data[0]) }}">
+                        {% include "image_card.html" with context %}
+                        {{ data[1] }}
+                    </a>
 
-                    {% endwith %}
-                </li>
+                {% endwith %}
+            </li>
         {% endfor %}
     </ul>
 

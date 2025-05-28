@@ -1,0 +1,18 @@
+{% extends "site_wrapper.html" %}
+
+{% block content %}
+
+<h2>{{ (a_action, " -> ", a_table)|join }}</h2>
+
+    {{ base_values }}
+
+<form action="" method="post">
+    {% for f in sql_fields %}
+        <label for="q">{{ f }}</label><br>
+        <input type="text" id="{{ f }}" name="{{ f }}" autocomplete="off">
+    <br><br>
+    {% endfor %}
+    <input type="submit" value="Submit">
+</form>
+
+{% endblock %}

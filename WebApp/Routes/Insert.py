@@ -10,6 +10,40 @@ from WebApp.Routes.Home import Home
 
 Insert = Blueprint('Insert', __name__)
 
+@Insert.route("/insert_select", methods=['GET', 'POST'])
+def insert_select():
+    if request.method == 'POST':
+        a_table = request.form.get('t')
+        a_action = request.form.get('a')
+        return redirect(url_for('Insert.insert_specific', t=a_table, a = a_action))
+    else:
+        return render_template("insert_select.html")
+
+@Insert.route("/insert_specific", methods=['GET', 'POST'])
+def insert_specific():
+    if request.method == 'POST':
+        a_table = request.form.get('t')
+        a_action = request.form.get('a')
+        return redirect(url_for('Home.home'))
+    else:
+        a_table = request.args.get('t')
+        a_action = request.args.get('a')
+        conn = sqlutil.get_connection()
+        cur = conn.cursor()
+        cur.execute(f"select * from {a_table} LIMIT 0")
+
+        column_names = [desc.name for desc in cur.description]
+        cur.execute(f"SELECT COUNT(*) FROM {a_table}")
+        base_values = cur.fetchall()[0][0]
+        cur.close()
+        conn.close()
+        return render_template("insert_specific.html",
+                               a_action=a_action,
+                               a_table=a_table,
+                               sql_fields = column_names,
+                               base_values = base_values)
+
+
 @Insert.route("/insert", methods=['GET', 'POST'])
 def insert():
     if request.method == 'GET':

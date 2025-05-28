@@ -6,7 +6,7 @@ Track = Blueprint('Track', __name__)
 
 @Track.route("/tracks")
 def tracks():
-    return redirect(url_for('Search.search', table='track'))
+    return redirect(url_for('Search.search', t='track'))
 
 
 @Track.route("/track/<id>")

@@ -8,7 +8,20 @@
         <input type="submit" value="Submit">
     </form>
 
-    <h4>Showing search results for search term '{{ q }}' in table '{{ t }}'</h4>
+    {% if q %}
+        {% if t %}
+            <h4>Showing search results for search term '{{ q }}' in table: {{ t }}</h4>
+        {% else %}
+            <h4>Showing search results for search term '{{ q }}' in all tables</h4>
+        {% endif %}
+    {% else %}
+        {% if t %}
+            <h4>Showing top elements in table: {{ t }}</h4>
+        {% else %}
+            <h4>Showing top elements in all tables</h4>
+        {% endif %}
+    {% endif %}
+
 
     {% if q_result %}
         {% if q_result[0] %}

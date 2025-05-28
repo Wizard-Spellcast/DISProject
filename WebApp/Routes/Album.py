@@ -16,6 +16,9 @@ def album_lookup(id:str=None):
     cursor.execute(f"SELECT * FROM album WHERE id = {id}")
 
     album_data:models.Album = cursor.fetchone()
+
+    cursor.execute(f"SELECT * FROM track WHERE id IN (SELECT trackID FROM AlbumTrackLink WHERE albumID = {id})")
+    album_tracks:models.Album = cursor.fetchall()
     conn.close()
 
-    return render_template('album.html', album_data=album_data)
+    return render_template('album.html', album_data=album_data, album_tracks=album_tracks)

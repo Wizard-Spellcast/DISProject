@@ -15,32 +15,32 @@ Search = Blueprint('Search', __name__)
 def search():
     if request.method == 'POST':
         query = request.form.get('q')
-        table = request.args.get('t')
-        return redirect(url_for("Search.search", t=table, q=query))
+        q_table = request.args.get('t')
+        return redirect(url_for("Search.search", t=q_table, q=query))
 
     query = request.args.get('q')
-    table = request.args.get('t')
+    q_table = request.args.get('t')
     if query is None:
-        return render_template('search.html', t=table)
+        return render_template('search.html', t=q_table)
     else: # if system search
         conn = sqlutil.get_connection()
         cur = conn.cursor()
 
-        q_result = []
+        if q_table is None:
+            tables = ["artist", "album", "track"]
 
-        if table is None:
-            cur.execute(f"SELECT * FROM artist WHERE name ~ '{query}'")
-            q_result_artist = cur.fetchall()
-            cur.execute(f"SELECT * FROM album WHERE name ~ '{query}'")
-            q_result_album = cur.fetchall()
-            cur.execute(f"SELECT * FROM track WHERE name ~ '{query}'")
-            q_result_track = cur.fetchall()
-            q_result = [q_result_artist, q_result_album, q_result_track, q_result_track]
+            results = []
+
+            for table in tables:
+                cur.execute(f"SELECT * FROM {table} WHERE name ~ '{query}'")
+                results.append(cur.fetchall())
+
+            q_result = results
         else:
-            cur.execute(f"SELECT * FROM {table} WHERE name ~ '{query}'")
+            cur.execute(f"SELECT * FROM {q_table} WHERE name ~ '{query}'")
             q_result = [cur.fetchall()]
 
 
-        app_ctx.app.logger.info(f"Found {len(q_result)} results in all tables by query: {table}")
+        app_ctx.app.logger.info(f"Found {len(q_result)} results in all tables by query: {query}")
 
-        return render_template('search.html', t=table, q=query, q_result=q_result)
+        return render_template('search.html', t=q_table, q=query, q_result=q_result)
