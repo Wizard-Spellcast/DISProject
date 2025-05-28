@@ -1,13 +1,15 @@
 {% extends "site_wrapper.html" %}
 
-{% block body %}
+{% block content %}
 
-<h1>
-    {% if track_data %}
-        {{ track_data[1] }}
-    {% else %}
-        FAILED TO GET TRACK DATA!
-    {% endif %}
-</h1>
+{% if track_data %}
+    {% set img_string = ("track", track_data[0]|string)|join("/") %}
+    {% include "image_card.html" with context %}
+    <h2>{{ track_data[1] }}</h2>
+
+
+{% else %}
+    FAILED TO GET TRACK DATA!
+{% endif %}
 
 {% endblock %}

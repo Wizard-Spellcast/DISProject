@@ -4,9 +4,9 @@ import psycopg2
 
 Artist = Blueprint('Artist', __name__)
 
-@Artist.route("/artist")
-def artist_search():
-    return redirect(url_for('Search.search', table='artist'))
+@Artist.route("/artists")
+def artists():
+    return redirect(url_for('Search.search', t='artist'))
 
 @Artist.route("/artist/<id>")
 def artist_lookup(id:str=None):

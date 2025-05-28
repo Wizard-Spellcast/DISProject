@@ -11,11 +11,12 @@
         <li><a href="{{ url_for('Home.home')    }}">Home</a></li>
         <li><a href="{{ url_for('Insert.insert')}}">Insert Data</a></li>
 
-        <li><a href="{{ url_for('Artist.artist_search')}}">Artists</a></li>
-        <li><a href="{{ url_for('Album.album_search')  }}">Albums</a></li>
-        <li><a href="{{ url_for('Track.track_search')  }}">Tracks</a></li>
+        <li><a href="{{ url_for('Search.search') }}">Search</a></li>
+        <li><a href="{{ url_for('Artist.artists')}}">Artists</a></li>
+        <li><a href="{{ url_for('Album.albums')  }}">Albums</a></li>
+        <li><a href="{{ url_for('Track.tracks')  }}">Tracks</a></li>
     </ul>
 
-    {% block body %}
+    {% block content %}
     {% endblock %}
 </body>

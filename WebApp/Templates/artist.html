@@ -1,6 +1,6 @@
 {% extends "site_wrapper.html" %}
 
-{% block body %}
+{% block content %}
 
 {% if artist_data %}
     {% set img_string = ("artist", artist_data[0]|string)|join("/") %}
@@ -15,8 +15,12 @@
         {% for album_data in artist_albums %}
                 <li>
                     {% with data = album_data %}
-                        <a href="{{ url_for("Album.album_lookup", id = data[0]) }}">{{ data[1] }}</a>
-                        {% include "image_card.html" with context %}
+                        {% set img_string = ("album", data[0]|string)|join("/") %}
+                        <a class="container" href="{{ url_for("Album.album_lookup", id = data[0]) }}">
+                            {% include "image_card.html" with context %}
+                            {{ data[1] }}
+                        </a>
+
                     {% endwith %}
                 </li>
         {% endfor %}

@@ -4,9 +4,9 @@ import psycopg2
 
 Album = Blueprint('Album', __name__)
 
-@Album.route("/album")
-def album_search():
-    return redirect(url_for('Search.search', table='album'))
+@Album.route("/albums")
+def albums():
+    return redirect(url_for('Search.search', t='album'))
 
 
 @Album.route("/album/<id>")

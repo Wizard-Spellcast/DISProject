@@ -1,32 +1,52 @@
 {% extends "site_wrapper.html" %}
 
-{% block body %}
-
+{% block content %}
 
     <form method="post">
-        <input type="hidden" name="table" value="{{ table }}">
-        <label for="query">{{ table }} name</label><br>
-        <input type="text" id="query" name="query" autocomplete="off"><br>
+        <label for="q">Search</label><br>
+        <input type="text" id="q" name="q" autocomplete="off"><br>
         <input type="submit" value="Submit">
     </form>
 
-    <h4>Below are search results from table: {{ table }}</h4>
+    <h4>Showing search results for search term '{{ q }}' in table '{{ t }}'</h4>
 
     {% if q_result %}
-        <table>
-            <tr>
-                <th>
-                    Name
-                </th>
-            </tr>
-            <tr>
-                {% for i in q_result %}
-                    <td>
-                        <a href="{{ url_for(lt, id=i[0]) }}"> {{ i[1] }} </a>
-                    </td>
-                {% endfor %}
-            </tr>
-        </table>
+        {% if q_result[0] %}
+            <h2>Artists: {{ q_result[0]|length }}</h2>
+            <table>
+                <tr>
+                    {% for i in q_result[0] %}
+                        <td>
+                            <a href="{{ url_for('Artist.artist_lookup', id=i[0]) }}"> {{ i[1] }} </a>
+                        </td>
+                    {% endfor %}
+                </tr>
+            </table>
+        {% endif %}
+        {% if q_result[1] %}
+           <h2 id="query_category">Albums: {{ q_result[1]|length }}</h2>
+            <table>
+                <tr>
+                    {% for i in q_result[1] %}
+                        <td>
+                            <a href="{{ url_for('Album.album_lookup', id=i[0]) }}"> {{ i[1] }} </a>
+                        </td>
+                    {% endfor %}
+                </tr>
+            </table>
+        {% endif %}
+        {% if q_result[2] %}
+           <h2>Tracks: {{ q_result[2]|length }}</h2>
+            <table>
+                <tr>
+                    {% for i in q_result[2] %}
+                        <td>
+                            <a href="{{ url_for('Track.track_lookup', id=i[0]) }}"> {{ i[1] }} </a>
+                        </td>
+                    {% endfor %}
+                </tr>
+            </table>
+        {% endif %}
     {% endif %}
 
 {% endblock %}

@@ -4,8 +4,8 @@ import psycopg2
 
 Track = Blueprint('Track', __name__)
 
-@Track.route("/track")
-def track_search():
+@Track.route("/tracks")
+def tracks():
     return redirect(url_for('Search.search', table='track'))
 
 
