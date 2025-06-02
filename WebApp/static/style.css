@@ -109,3 +109,10 @@ a.page-topper {
 h2 {
   margin: 0;
 }
+
+img {
+  width:100px;
+  height:100px;
+  background-size: 100px;
+  background-image:url(../static/image/404.jpg);
+}

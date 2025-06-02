@@ -8,13 +8,17 @@
 
 <form action="" method="post">
     {% for f in sql_fields %}
-        <label for="q">{{ f }}</label><br>
+        <label for="q">{{ f }}
+        </label><br>
         <input type="text"
                id="{{ f }}"
                name="{{ f }}"
                autocomplete="off"
                 {% if f == "id" %}
                     value="{{ base_values }}"
+                {% endif %}
+                {% if f == "id" %}
+                    readonly
                 {% endif %}
         >
     <br><br>

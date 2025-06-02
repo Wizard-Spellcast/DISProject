@@ -21,7 +21,7 @@ def search():
     query = request.args.get('q')
     q_table = request.args.get('t')
     if query is None:
-        return render_template('search.html', t=q_table)
+        return redirect(url_for("Search.search", t=q_table, q=""))
     else: # if system search
         conn = sqlutil.get_connection()
         cur = conn.cursor()
