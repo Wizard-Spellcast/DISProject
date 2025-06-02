@@ -22,8 +22,51 @@ def insert_select():
 @Insert.route("/insert_specific", methods=['GET', 'POST'])
 def insert_specific():
     if request.method == 'POST':
-        a_table = request.form.get('t')
-        a_action = request.form.get('a')
+        a_table = request.args.get('t')
+        a_action = request.args.get('a')
+        app_ctx.app.logger.error(a_action)
+
+        con = sqlutil.get_connection()
+        cur = con.cursor()
+
+        cur.execute(f"SELECT column_name, data_type FROM information_schema.columns WHERE table_name = '{a_table}'")
+        columns = cur.fetchall()
+        app_ctx.app.logger.error(columns)
+
+        keys = []
+        values = []
+
+        items = dict(request.form.items())
+
+        for column in columns:
+            key = column[0]
+
+            keys.append(key)
+            value_data = items[key]
+
+            match column[1]:
+                case 'integer':
+                    values.append(value_data)
+                case 'character varying':
+                    values.append(f"'{value_data}'")
+                case _:
+                    app_ctx.app.logger.error(f"Unknown column type parsed: {column[1]}")
+
+
+        app_ctx.app.logger.error(f"({", ".join(keys)})")
+        app_ctx.app.logger.error(f"({", ".join(values)})")
+
+        match a_action:
+            case 'INSERT':
+                cur.execute(f"INSERT INTO {a_table} ({", ".join(keys)}) VALUES ({", ".join(values)})")
+            case 'UPDATE':
+                # Todo
+                ()
+            case 'DELETE':
+                # Could be done via just the id? but to ensure that the user does not delete the wrong entry we must confirm all data
+                del_string = f"DELETE FROM {a_table} WHERE {" AND ".join([f"{k}={v}" for k,v in zip(keys, values)])}"
+                cur.execute(del_string)
+
         return redirect(url_for('Home.home'))
     else:
         a_table = request.args.get('t')

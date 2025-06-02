@@ -14,6 +14,7 @@ if con is None:
     con = sqlutil.get_connection('CONNECTION_STRING_PGDB')
     if con is None:
         app.logger.fatal("Could not connect to PG DB")
+        raise Exception("Could not connect to PG DB, check postgresql setup")
     else:
         app.logger.info("Connected to PG DB")
         cur = con.cursor()
@@ -31,10 +32,6 @@ if con is None:
         app.logger.info("Populating DB")
 
         cur.execute(open(os.getcwd() + "/db/init.sql", "r").read())
-
-        #cur.execute(open(os.getcwd() + "/db/insertArtist.sql", "r").read())
-        #cur.execute(open(os.getcwd() + "/db/insertAlbum.sql", "r").read())
-        #cur.execute(open(os.getcwd() + "/db/insertTrack.sql", "r").read())
 
         app.logger.info("Finished populating DB")
 

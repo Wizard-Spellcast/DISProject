@@ -14,7 +14,7 @@
     <br><br>
     <label for="a">Action:</label>
     <select name="a" id="a">
-      {% for action in ["INSERT", "UPDATE", "DROP"] %}
+      {% for action in ["INSERT", "UPDATE", "DELETE"] %}
           <option value="{{ action }}">{{ action }}</option>
       {% endfor %}
     </select>
