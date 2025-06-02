@@ -8,8 +8,7 @@
 
 <form action="" method="post">
     {% for f in sql_fields %}
-        <label for="q">{{ f }}
-        </label><br>
+        <label>{{ f }}<br>
         <input type="text"
                id="{{ f }}"
                name="{{ f }}"
@@ -19,9 +18,8 @@
                 {% endif %}
                 {% if f == "id" and a_action == "INSERT" %}
                     readonly
-                {% endif %}
-        >
-    <br><br>
+                {% endif %}>
+        </label><br><br>
     {% endfor %}
     <input type="submit" value="Submit">
 </form>

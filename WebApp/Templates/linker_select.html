@@ -1,0 +1,24 @@
+{% extends "site_wrapper.html" %}
+
+{% block content %}
+
+    <h2>Select two different tables to create a one to many link from Table 1 to Table 2</h2>
+    <h4>Possible link are: (artist,album), (album,track)</h4>
+    <form action="" method="post">
+        <label for="t1">Table 1:</label>
+        <select name="t1" id="t1">
+          {% for table in ["artist", "album", "track"] %}
+              <option value="{{ table }}">{{ table }}</option>
+          {% endfor %}
+        </select>
+        <br><br>
+        <label for="t2">Table 2:</label>
+        <select name="t2" id="t2">
+          {% for table in ["artist", "album", "track"] %}
+              <option value="{{ table }}">{{ table }}</option>
+          {% endfor %}
+        </select>
+        <input type="submit" value="Submit">
+    </form>
+
+{% endblock %}

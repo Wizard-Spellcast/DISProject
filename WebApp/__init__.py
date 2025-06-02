@@ -70,10 +70,11 @@ def register_blueprints(_app, _blueprints):
     for bp in _blueprints:
         _app.register_blueprint(bp)
 
-from WebApp.Routes import Home, Insert, Artist, Album, Track, Search
+from WebApp.Routes import Home, Insert, Artist, Album, Track, Search, Linker
 app.register_blueprint(Home.Home)
 app.register_blueprint(Insert.Insert)
 app.register_blueprint(Artist.Artist)
 app.register_blueprint(Album.Album)
 app.register_blueprint(Track.Track)
 app.register_blueprint(Search.Search)
+app.register_blueprint(Linker.Linker)

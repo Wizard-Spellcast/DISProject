@@ -1,25 +1,22 @@
 {% extends "site_wrapper.html" %}
 
 {% block content %}
-
-<h2>HTML Forms</h2>
-
-<form action="" method="post">
-    <label for="t">Table:</label>
-    <select name="t" id="t">
-      {% for table in ["artist", "album", "track"] %}
-          <option value="{{ table }}">{{ table }}</option>
-      {% endfor %}
-    </select>
-    <br><br>
-    <label for="a">Action:</label>
-    <select name="a" id="a">
-      {% for action in ["INSERT", "UPDATE", "DELETE"] %}
-          <option value="{{ action }}">{{ action }}</option>
-      {% endfor %}
-    </select>
-    <br><br>
-    <input type="submit" value="Submit">
-</form>
+    <form action="" method="post">
+        <label for="t">Table:</label>
+        <select name="t" id="t">
+          {% for table in ["artist", "album", "track"] %}
+              <option value="{{ table }}">{{ table }}</option>
+          {% endfor %}
+        </select>
+        <br><br>
+        <label for="a">Action:</label>
+        <select name="a" id="a">
+          {% for action in ["INSERT", "UPDATE", "DELETE"] %}
+              <option value="{{ action }}">{{ action }}</option>
+          {% endfor %}
+        </select>
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
 
 {% endblock %}

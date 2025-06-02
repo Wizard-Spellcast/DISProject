@@ -16,7 +16,17 @@ li {
 }
 
 pre {
+  display: block;
+  font-size: 1em;
+  margin-left: auto;
+  margin-right: auto;
   color: bisque;
+}
+
+@media screen {
+  pre {
+    font-size: 20px;
+  }
 }
 
 ul.list-box {
@@ -48,15 +58,19 @@ li a:hover {
 
 td {
   float: left;
+  text-align: left;
 }
 
 td a {
   background-color: #333;
   display: block;
-  color: white;
+  color: floralwhite;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 td a:hover {
@@ -68,7 +82,7 @@ input {
   padding: 5px;
   overflow: auto;
   display: compact;
-  color: white;
+  color: floralwhite;
   text-decoration: none;
   background-color: #333333;
   border: #333333;
@@ -115,4 +129,21 @@ img {
   height:100px;
   background-size: 100px;
   background-image:url(../static/image/404.jpg);
+}
+
+/* https://stackoverflow.com/questions/3779534/how-do-i-disable-text-selection-with-css-or-javascript */
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+table, th, td {
+  display: compact;
+  color: floralwhite;
+  border: 1px solid black;
 }

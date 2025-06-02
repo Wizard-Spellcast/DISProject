@@ -1,0 +1,52 @@
+{% extends "site_wrapper.html" %}
+
+{% block content %}
+
+    <form action="" method="post">
+    <table>
+        <tr>
+            id
+            {{ t1 }}
+            selected
+        </tr>
+        {% for e in t1_data %}
+            <tr>
+                <td style="column-count: 3; display: block">
+                        <label for="{{ e }}"><a class="noselect">{{ e[0] }}</a></label>
+                        <label for="{{ e }}"><a style="width: 100px;" class="noselect">{{ e[1] }}</a></label>
+                        <input type="radio"
+                               id="{{ e }}"
+                               value="{{ e }}"
+                               name="t1_selection"
+                        >
+                    <label for="{{ e }}"></label>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <table>
+        <tr>
+            id
+            {{ t2 }}
+            selected
+        </tr>
+            {% for e in t2_data %}
+                <tr>
+                    <td style="column-count: 3">
+                        <label>
+                            <a class="noselect">{{ e[0] }}</a>
+                            <a style="width: 100px;" class="noselect">{{ e[1] }}</a>
+                            <input type="checkbox"
+                                   id="{{ e }}"
+                                   name="{{ e }}">
+                        </label>
+                    </td>
+                </tr>
+            {% endfor %}
+    </table>
+    <input type="submit" value="Submit">
+    </form>
+
+
+
+{% endblock %}

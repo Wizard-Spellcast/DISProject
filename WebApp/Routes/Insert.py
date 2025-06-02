@@ -11,7 +11,7 @@ from WebApp.Routes.Home import Home
 Insert = Blueprint('Insert', __name__)
 
 @Insert.route("/insert_select", methods=['GET', 'POST'])
-def insert_select():
+def insert():
     if request.method == 'POST':
         a_table = request.form.get('t')
         a_action = request.form.get('a')
@@ -24,14 +24,12 @@ def insert_specific():
     if request.method == 'POST':
         a_table = request.args.get('t')
         a_action = request.args.get('a')
-        app_ctx.app.logger.error(a_action)
 
         con = sqlutil.get_connection()
         cur = con.cursor()
 
         cur.execute(f"SELECT column_name, data_type FROM information_schema.columns WHERE table_name = '{a_table}'")
         columns = cur.fetchall()
-        app_ctx.app.logger.error(columns)
 
         keys = []
         values = []
@@ -52,10 +50,6 @@ def insert_specific():
                 case _:
                     app_ctx.app.logger.error(f"Unknown column type parsed: {column[1]}")
 
-
-        app_ctx.app.logger.error(f"({", ".join(keys)})")
-        app_ctx.app.logger.error(f"({", ".join(values)})")
-
         match a_action:
             case 'INSERT':
                 cur.execute(f"INSERT INTO {a_table} ({", ".join(keys)}) VALUES ({", ".join(values)})")
@@ -67,7 +61,7 @@ def insert_specific():
                 del_string = f"DELETE FROM {a_table} WHERE {" AND ".join([f"{k}={v}" for k,v in zip(keys, values)])}"
                 cur.execute(del_string)
 
-        return redirect(url_for('Home.home'))
+        return redirect(url_for('Insert.insert_specific', t=a_table, a = a_action))
     else:
         a_table = request.args.get('t')
         a_action = request.args.get('a')
@@ -86,9 +80,9 @@ def insert_specific():
                                sql_fields = column_names,
                                base_values = base_values)
 
-
+"""
 @Insert.route("/insert", methods=['GET', 'POST'])
-def insert():
+def insert_data():
     if request.method == 'GET':
         return render_template("insert.html")
     else:
@@ -106,3 +100,4 @@ def insert():
 
 
         return redirect(url_for('Home.home'))
+        """
