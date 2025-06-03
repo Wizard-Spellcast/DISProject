@@ -1,18 +1,18 @@
-apiVersion: v1
-kind: Pod
-metadata:
-  name: web-app
-  annotations:
-    io.podman.annotations.map-gw: "true"
-    io.podman.annotations.map-host-loopback: "true"
-spec:
-  hostNetwork: true
-  containers:
-  - name: web-app
-    image: localhost/web-app:latest
-    command: ["python", "run.py"]
-    ports:
-    - containerPort: 5000
+#apiVersion: v1
+#kind: Pod
+#metadata:
+#  name: web-app
+#  annotations:
+#    io.podman.annotations.map-gw: "true"
+#    io.podman.annotations.map-host-loopback: "true"
+#spec:
+#  hostNetwork: true
+#  containers:
+#  - name: web-app
+#    image: localhost/web-app:latest
+#    command: ["python", "run.py"]
+#    ports:
+#    - containerPort: 5000
 ---
 # PostgreSQL DB
 apiVersion: v1

@@ -11,7 +11,7 @@ app = Flask(__name__)
 con = sqlutil.get_connection()
 if con is None:
     app.logger.error("Could not connect to Wizard DB")
-    con = sqlutil.get_connection('CONNECTION_STRING_PGDB')
+    con = sqlutil.get_connection('SQL_PGDB')
     if con is None:
         app.logger.fatal("Could not connect to PG DB")
         raise Exception("Could not connect to PG DB, check postgresql setup")
@@ -26,12 +26,29 @@ if con is None:
         con.close()
 
         # This does not work, use insert tab cause that for some reason works
-        conNew = sqlutil.get_connection() # Connect to newly created DB
+        con = sqlutil.get_connection() # Connect to newly created DB
         app.logger.info("Connected to Wizard DB")
-        cur = conNew.cursor()
+        cur = con.cursor()
         app.logger.info("Populating DB")
 
-        cur.execute(open(os.getcwd() + "/db/init.sql", "r").read())
+        sql_cmd = open(os.getcwd() + "/db/init.sql", "r").read()
+
+        cur.execute(sql_cmd)
+
+        data = [
+            "Artist", "Album", "Track", "Genre"
+        ]
+        links = [
+            "ArtistAlbum", "AlbumTrack", "TrackGenre"
+        ]
+
+        for elm in data:
+            cmd =  open(f"{os.getcwd()}/db/insert{elm}.sql").read()
+            cur.execute(cmd)
+
+        for elm in links:
+            cmd =  open(f"{os.getcwd()}/db/insert{elm}Link.sql").read()
+            cur.execute(cmd)
 
         app.logger.info("Finished populating DB")
 
