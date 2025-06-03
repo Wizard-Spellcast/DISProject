@@ -1,14 +1,40 @@
 import json
 import os
-from flask import render_template, url_for, flash, redirect, request, Blueprint
+from flask import render_template, url_for, flash, redirect, request, Blueprint, Flask
 from flask.globals import app_ctx
+import re
 
 from WebApp import models, sqlutil
 import psycopg2
 
 from WebApp.Routes.Home import Home
 
+app = Flask("WebApp")
+
+# num predicate. Is regex
+nump = re.compile("[0-9]+")
+
+
+def isnum(s):
+    bool(nump.fullmatch(s))
+
+
+def artistToId(s, cur):
+    if isnum(s):
+        cur.execute(f"select * from artist where id = {s}")
+        c = cur.fetchall()      # gets columns
+        if c.length == 0:       # if no id corresponds to an artist; -1
+            return -1
+        return int(s)           # if s was valid id, then cast to int
+    cur.execute(f"select distinct id from artist where name = '{s}'")
+    c = cur.fetchall()          # gets columns
+    if len(c) != 1:
+        return int(c[0][0])
+    return -1                   # if not exactly one artist; -1
+
+
 Insert = Blueprint('Insert', __name__)
+
 
 @Insert.route("/insert_select", methods=['GET', 'POST'])
 def insert():
@@ -52,7 +78,20 @@ def insert_specific():
 
         match a_action:
             case 'INSERT':
-                cur.execute(f"INSERT INTO {a_table} ({", ".join(keys)}) VALUES ({", ".join(values)})")
+                match a_table:
+                    case 'album':
+                        ai = keys.index("artistowner")
+                        ni = keys.index("name")
+                        ii = keys.index("id")
+                        id = artistToId(values[ai], cur)
+                        app.logger.info(f"id: {id}")
+                        if id != -1:
+                            cur.execute(f"""
+                                        insert into album values (
+                                            {values[ii]}, {values[ni]}, {id}
+                                        )""")
+                    case _:
+                        cur.execute(f"INSERT INTO {a_table} ({", ".join(keys)}) VALUES ({", ".join(values)})")
             case 'UPDATE':
                 # Todo
                 ()
