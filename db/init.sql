@@ -20,11 +20,6 @@ CREATE TABLE IF NOT EXISTS track(
 );
 
 
-CREATE TABLE IF NOT EXISTS genre(
-	id      INT PRIMARY KEY,
-	name    VARCHAR NOT NULL
-);
-
 CREATE TABLE IF NOT EXISTS artistAlbumLink(
     artistID INT,
     albumID INT,
