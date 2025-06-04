@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS track(
 );
 
 
+
 CREATE TABLE IF NOT EXISTS artistAlbumLink(
     artistID INT,
     albumID INT,
@@ -33,13 +34,5 @@ CREATE TABLE IF NOT EXISTS albumTrackLink(
     trackID INT,
 	PRIMARY KEY (albumID, trackID),
 	FOREIGN KEY (albumID)   REFERENCES album,
-	FOREIGN KEY (trackID)   REFERENCES track
-);
-
-CREATE TABLE IF NOT EXISTS trackGenreLink(
-    genreID INT,
-    trackID INT,
-	PRIMARY KEY (genreID, trackID),
-	FOREIGN KEY (genreID)   REFERENCES genre,
 	FOREIGN KEY (trackID)   REFERENCES track
 );

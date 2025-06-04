@@ -36,10 +36,10 @@ if con is None:
         cur.execute(sql_cmd)
 
         data = [
-            "Artist", "Album", "Track", "Genre"
+            "Artist", "Album", "Track"
         ]
         links = [
-            "ArtistAlbum", "AlbumTrack", "TrackGenre"
+            "ArtistAlbum", "AlbumTrack"
         ]
 
         for elm in data:
