@@ -4,33 +4,38 @@
 
 {% if album_data %}
     {% set img_string = ("album", album_data[0]|string)|join("/") %}
-    <a class="page-topper">
-    {% include "image_card.html" with context %}
-    <h2>Album - {{ album_data[1] }}</h2>
-    </a>
+    <div class="container">
+        <div id="wrapper" class="page-topper">
+        {% include "image_card.html" with context %}
+        <a href="{{ url_for("Artist.artist_lookup", id = album_data[2]) }}">
+            <h2>Back to Artist</h2>
+        </a>
+        <h2>Album - {{ album_data[1] }}</h2>
+        </div>
+
+    </div>
 
     <h4>
     Tracks
     </h4>
 
-    <ul class="list-box">
+    <ul class="track">
         {% for track_data in album_tracks %}
-                <li class="list-box-element" draggable="true">
-                    <!--
-                    Tracks use same image as their parent album,
-                    a field stating if each track has a specific image
-                    could be added to the tracks table, but we did feel
-                    that this is too extra.
-                     -->
-                    {% set img_string = ("album", album_data[0]|string)|join("/") %}
-                    <a class="container" href="{{ url_for("Track.track_lookup", id = track_data[0]) }}">
-                        {% include "image_card.html" with context %}
-                        {{ track_data[1] }}
-                    </a>
-                </li>
+            <li class="track">
+                <!--
+                Tracks use same image as their parent album,
+                a field stating if each track has a specific image
+                could be added to the tracks table, but we did feel
+                that this is too extra.
+                 -->
+                {% set img_string = ("album", album_data[0]|string)|join("/") %}
+                <a class="track" href="{{ url_for("Track.track_lookup", id = track_data[0]) }}">
+                    {% include "image_card.html" with context %}
+                    {{ track_data[1] }}
+                </a>
+            </li>
         {% endfor %}
     </ul>
-
 
 {% else %}
     FAILED TO GET ALBUM DATA!

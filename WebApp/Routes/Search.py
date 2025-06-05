@@ -38,7 +38,14 @@ def search():
             q_result = results
         else:
             cur.execute(f"SELECT * FROM {q_table} WHERE name ~ '{query}'")
-            q_result = [cur.fetchall()]
+
+            # Cursed but works with the html page to show only the requested table
+            if q_table == "artist":
+                q_result = [cur.fetchall(), None, None]
+            elif q_table == "album":
+                q_result = [None, cur.fetchall(), None]
+            else:
+                q_result = [None, None, cur.fetchall()]
 
 
         app_ctx.app.logger.info(f"Found {len(q_result)} results in all tables by query: {query}")

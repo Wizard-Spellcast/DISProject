@@ -4,10 +4,13 @@
 
 {% if artist_data %}
     {% set img_string = ("artist", artist_data[0]|string)|join("/") %}
-    <a class="page-topper">
-        {% include "image_card.html" with context %}
-        <h2>Artist - {{ artist_data[1] }}</h2>
-    </a>
+    <div class="container">
+        <div id="wrapper" class="page-topper">
+            {% include "image_card.html" with context %}
+            <h2>Artist - {{ artist_data[1] }}</h2>
+        </div>
+    </div>
+
 
     <h4>
     Albums
@@ -18,11 +21,10 @@
             <li  class="list-box-element">
                 {% with data = album_data %}
                     {% set img_string = ("album", data[0]|string)|join("/") %}
-                    <a class="container" href="{{ url_for("Album.album_lookup", id = data[0]) }}">
-                        {% include "image_card.html" with context %}
+                    <a id="wrapper" class="container" href="{{ url_for("Album.album_lookup", id = data[0]) }}">
+                    {% include "image_card.html" with context %}
                         {{ data[1] }}
                     </a>
-
                 {% endwith %}
             </li>
         {% endfor %}

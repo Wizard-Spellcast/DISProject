@@ -27,22 +27,32 @@
         {% if q_result[0] %}
             <h2>Artists: {{ q_result[0]|length }}</h2>
             <table>
-                <tr>
+                <tr class="overflow_list">
                     {% for i in q_result[0] %}
                         <td>
-                            <a href="{{ url_for('Artist.artist_lookup', id=i[0]) }}"> {{ i[1] }} </a>
+                            <a class="container" id="wrapper" draggable="false" href="{{ url_for('Artist.artist_lookup', id=i[0]) }}">
+                                {% with img_string = ("artist", i[0]|string)|join("/") %}
+                                    {% include "image_card.html" with context %}
+                                {% endwith %}
+                                {{ i[1] }}
+                            </a>
                         </td>
                     {% endfor %}
                 </tr>
             </table>
         {% endif %}
         {% if q_result[1] %}
-           <h2 id="query_category">Albums: {{ q_result[1]|length }}</h2>
+            <h2>Albums: {{ q_result[1]|length }}</h2>
             <table>
-                <tr>
+                <tr class="overflow_list">
                     {% for i in q_result[1] %}
                         <td>
-                            <a href="{{ url_for('Album.album_lookup', id=i[0]) }}"> {{ i[1] }} </a>
+                            <a class="container" id="wrapper" draggable="false" href="{{ url_for('Album.album_lookup', id=i[0]) }}">
+                                {% with img_string = ("album", i[0]|string)|join("/") %}
+                                    {% include "image_card.html" with context %}
+                                {% endwith %}
+                                {{ i[1] }}
+                            </a>
                         </td>
                     {% endfor %}
                 </tr>
@@ -51,10 +61,12 @@
         {% if q_result[2] %}
            <h2>Tracks: {{ q_result[2]|length }}</h2>
             <table>
-                <tr>
+                <tr class="overflow_list">
                     {% for i in q_result[2] %}
                         <td>
-                            <a href="{{ url_for('Track.track_lookup', id=i[0]) }}"> {{ i[1] }} </a>
+                            <a class="container" id="wrapper" draggable="false" href="{{ url_for('Track.track_lookup', id=i[0]) }}">
+                                {{ i[1] }}
+                            </a>
                         </td>
                     {% endfor %}
                 </tr>

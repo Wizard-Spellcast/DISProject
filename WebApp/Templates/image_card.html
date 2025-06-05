@@ -6,9 +6,6 @@
         {% endif %}
     {% endfor %}
 
-    <img id='image_card'
-         width="100px"
-         height="100px"
-         src="{{ url_for('static', filename='image/' + img_string_full + ".jpg") }}">
+    <img class="noselect" draggable="false" id='image_card' src="{{ url_for('static', filename='image/' + img_string_full + ".jpg") }}">
 
 {% endblock %}

@@ -4,26 +4,28 @@
 
 {% if track_data %}
     {% set img_string = ("album", track_data[3]|string)|join("/") %}
-    <a class="page-topper">
-        {% include "image_card.html" with context %}
-        <h2>Track - {{ track_data[1] }}</h2>
-    </a>
+    <div class="container">
+        <div id="wrapper" class="page-topper">
+            {% include "image_card.html" with context %}
+            <h2>Track - {{ track_data[1] }}</h2>
+        </div>
+    </div>
 
     <ul class="list-box">
         {% with data = track_data %}
-            <li class="list-box-element">
-                    {% set img_string = ("album", data[3]|string)|join("/") %}
-                    <a class="container" href="{{ url_for("Album.album_lookup", id = data[3]) }}">
-                        From Album
-                        {% include "image_card.html" with context %}
-                    </a>
+            <li>
+                {% set img_string = ("artist", data[2]|string)|join("/") %}
+                <a class="container" id="wrapper" href="{{ url_for("Artist.artist_lookup", id = data[2]) }}">
+                    Go to artist
+                    {% include "image_card.html" with context %}
+                </a>
             </li>
-            <li class="list-box-element">
-                    {% set img_string = ("artist", data[2]|string)|join("/") %}
-                    <a class="container" href="{{ url_for("Artist.artist_lookup", id = data[2]) }}">
-                        By Artist
-                        {% include "image_card.html" with context %}
-                    </a>
+            <li>
+                {% set img_string = ("album", data[3]|string)|join("/") %}
+                <a class="container" id="wrapper" href="{{ url_for("Album.album_lookup", id = data[3]) }}">
+                    Go to album
+                    {% include "image_card.html" with context %}
+                </a>
             </li>
         {% endwith %}
     </ul>

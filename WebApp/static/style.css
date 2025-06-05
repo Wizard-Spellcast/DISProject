@@ -1,13 +1,35 @@
 body {background-color: #7a4234;}
 
-/*
-This first part is ripped from https://www.w3schools.com/css/css_navbar_horizontal.asp
- */
-ul {
+* {
+  color: bisque;
+}
+
+ul.header {
   list-style-type: none;
-  margin: 0;
-  padding: 0px;
+  margin: 0 0 15px 0;
+  padding: 0;
   overflow: hidden;
+  background-color: #333;
+}
+
+li.track {
+  float: left;
+  clear: left;
+  display: flex;
+  width: 90%;
+  margin: 0;
+}
+
+a.track {
+  margin: 0 0 15px 0;
+  padding: 0px;
+  float: left;
+  clear: left;
+  display: flex;
+  width: 100%;
+  border-radius: 15px;
+  height: 75px;
+  horiz-align: center;
   background-color: #333;
 }
 
@@ -20,7 +42,6 @@ pre {
   font-size: 1em;
   margin-left: auto;
   margin-right: auto;
-  color: bisque;
 }
 
 @media screen {
@@ -32,11 +53,11 @@ pre {
 ul.list-box {
   list-style-type: none;
   margin: 0;
-  padding: 10px;
+  padding: 0px;
   overflow: hidden;
   background-color: #333;
-  border-radius: 10px;
 }
+
 
 
 li.list-box-element {
@@ -73,9 +94,6 @@ td a {
   text-overflow: ellipsis;
 }
 
-td a:hover {
-  background-color: #111;
-}
 
 input {
   margin: 5px;
@@ -103,14 +121,20 @@ img#image_card {
 }
 
 .container {
-  display: flex;
+  display: inline-block;
   flex-direction: column;
-  place-items: center;
 }
 
-a.page-topper {
-  display: inline-flex;
-  place-items: self-start;
+#wrapper {
+  width: 200px;
+  margin: 0 auto;
+  overflow: hidden;
+  float: left;
+  display: flex;
+}
+
+.page-topper {
+  display: flex;
   flex-direction: column;
   background-color: #582022;
   padding: 10px;
@@ -118,6 +142,27 @@ a.page-topper {
   margin-top: 15px;
   color: white;
   border-radius: 10px;
+  height:auto;
+  width:auto;
+}
+
+tr.overflow_list {
+  display: inline-flex;
+  overflow: scroll;
+  width: 1600px;
+  border: 1px solid black;
+  padding: 10px 0 10px 0;
+
+}
+
+a:hover {
+  background: #582022;
+}
+
+
+ul.track {
+  margin: 0;
+  padding: 0;
 }
 
 h2 {
@@ -125,11 +170,12 @@ h2 {
 }
 
 img {
-  width:100px;
-  height:100px;
   background-size: 100px;
+  aspect-ratio: 1;
   background-image:url(../static/image/404.jpg);
 }
+
+
 
 /* https://stackoverflow.com/questions/3779534/how-do-i-disable-text-selection-with-css-or-javascript */
 .noselect {
@@ -140,10 +186,4 @@ img {
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
-}
-
-table, th, td {
-  display: compact;
-  color: floralwhite;
-  border: 1px solid black;
 }
