@@ -1,6 +1,11 @@
 # Databases and Information Systems Group Project
 
+## KU-ids
+
+dsx992 xtb662 shk754
+
 ## Introduction
+
 We have built an artist/album/track browser that allows for relation lookups of releases by artists.
 We have also implemented an ui for adding new data to the database, and a search that uses regex so find
 relevant elements in the database.
@@ -14,6 +19,7 @@ Our database consists of a number of many-to-many connections, as well as some o
 
 
 # Running the web application
+
 ## Prerequisite
 
 * Podman or docker
