@@ -32,12 +32,12 @@ def search():
             results = []
 
             for table in tables:
-                cur.execute(f"SELECT * FROM {table} WHERE name ~ '{query}'")
+                cur.execute(f"SELECT * FROM {table} WHERE name ~ '{query}' ORDER BY id DESC")
                 results.append(cur.fetchall())
 
             q_result = results
         else:
-            cur.execute(f"SELECT * FROM {q_table} WHERE name ~ '{query}'")
+            cur.execute(f"SELECT * FROM {q_table} WHERE name ~ '{query}' ORDER BY id DESC")
 
             # Cursed but works with the html page to show only the requested table
             if q_table == "artist":

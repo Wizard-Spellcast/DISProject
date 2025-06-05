@@ -1,12 +1,13 @@
-services:
-  web-app:
-    container_name: web-app
-    ports:
-      - "5000"
-    command: "python run.py"
-  postgres:
-    - container_name: pgdb
-    - image: docker.io/library/postgres:latest
+# PostgreSQL DB
+apiVersion: v1
+kind: Pod
+metadata:
+  name: postgresql
+spec:
+  hostNetwork: true
+  containers:
+  - name: postgres
+    image: docker.io/library/postgres:latest
     env:
     - name: POSTGRES_PASSWORD
       value: password

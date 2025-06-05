@@ -28,7 +28,7 @@ def artistToId(s, cur):
         return int(s)           # if s was valid id, then cast to int
     cur.execute(f"select distinct id from artist where name = '{s}'")
     c = cur.fetchall()          # gets columns
-    if len(c) != 1:
+    if len(c) == 1:
         return int(c[0][0])
     return -1                   # if not exactly one artist; -1
 
@@ -93,8 +93,8 @@ def insert_specific():
                     case _:
                         cur.execute(f"INSERT INTO {a_table} ({", ".join(keys)}) VALUES ({", ".join(values)})")
             case 'UPDATE':
-                # Todo
-                ()
+                upd_string = f"UPDATE {a_table} SET {", ".join([f"{k}={v}" for k, v in zip(keys, values)])} WHERE id = {values[0]}"
+                cur.execute(upd_string)
             case 'DELETE':
                 # Could be done via just the id? but to ensure that the user does not delete the wrong entry we must confirm all data
                 del_string = f"DELETE FROM {a_table} WHERE {" AND ".join([f"{k}={v}" for k,v in zip(keys, values)])}"

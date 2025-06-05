@@ -100,7 +100,6 @@ input {
   padding: 5px;
   overflow: auto;
   display: compact;
-  color: floralwhite;
   text-decoration: none;
   background-color: #333333;
   border: #333333;
@@ -112,12 +111,17 @@ input:focus#query {
 }
 
 input:hover[type=submit] {
-  background-color: #444444;
+  background-color: #582022;
 }
 
 img#image_card {
   margin: 10px;
   border-radius: 10%;
+}
+
+select {
+  background: #333333;
+  border-color: #582022;
 }
 
 .container {
